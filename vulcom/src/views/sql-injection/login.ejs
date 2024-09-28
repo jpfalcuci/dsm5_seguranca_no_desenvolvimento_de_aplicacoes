@@ -1,0 +1,24 @@
+<%- include('../_partial/header') %>
+
+<h1>Vulnerabilidade SQL Injection</h1>
+
+<form>
+  <div style="color: red"><%= message %></div>
+  <div>
+    <label>
+      <span>Usuário:</span>
+      <input name="username" value="<%= username %>">
+    </label>
+  </div>
+  <div>
+    <label>
+      <span>Senha:</span>
+      <input type="password" name="password" value="<%= password %>">
+    </label>
+  </div>
+  <div>
+    <button type="submit">Enviar</button>
+  </div>
+</form>
+
+<%- include('../_partial/footer') %>
