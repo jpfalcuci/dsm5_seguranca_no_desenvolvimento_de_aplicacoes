@@ -33,6 +33,9 @@ app.use('/', indexRouter)
 import sqlInjectionRouter from './routes/sql-injection.js'
 app.use('/sql-injection', sqlInjectionRouter)
 
+import xssRouter from './routes/xss.js'
+app.use('/xss', xssRouter)
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404))
