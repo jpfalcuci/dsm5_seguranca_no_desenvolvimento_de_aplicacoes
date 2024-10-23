@@ -1,0 +1,87 @@
+<%- include('../_partial/header') %>
+
+<h1><%= title %></h1>
+
+<style>
+    .message {
+        padding: 10px;
+        margin: 10px 0;
+    }
+    .sucess {
+        border: 1px solid green;
+        background: lightgreen;
+    }
+    .error {
+        border: 1px solid red;
+        background: pink;
+    }
+    label span {
+        display: block;
+    }
+    label span.inline {
+        display: inline;
+    }
+</style>
+
+<% if(message) { %>
+    <div class="message <% error ? 'error' : 'sucess' %>">
+        <%= message %>
+    </div>
+<% } %>
+
+<form>
+    <div>
+        <label>
+            <span>Nome completo</span>
+            <input name="fullname" value="<%= user?.fullname %>">
+        </label>
+    </div>
+    
+    <div>
+        <label>
+            <span>Nome de usuário</span>
+            <input name="username" value="<%= user?.username %>">
+        </label>
+    </div>
+    
+    <div>
+        <label>
+            <span>E-mail</span>
+            <input name="email" value="<%= user?.email %>">
+        </label>
+    </div>
+
+    <div>
+        <label>
+            <span>Confirme o e-mail</span>
+            <input name="confirm_email" value="<%= user?.confirm_email %>">
+        </label>
+    </div>
+    
+    <div>
+        <label>
+            <input type="checkbox" name="is_admin" <%= user?.is_admin ? 'checked' : '' %>>
+            <span class="inline">É admin?</span>
+        </label>
+    </div>
+    
+    <div>
+        <label>
+            <span>Senha</span>
+            <input type="password" name="password">
+        </label>
+    </div>
+
+    <div>
+        <label>
+            <span>Confirme a senha</span>
+            <input type="confirm_password" name="confirm_password">
+        </label>
+    </div>
+
+    <div>
+        <button type="submit">Enviar</button>
+    </div>
+</form>
+
+<%- include('../_partial/footer') %>

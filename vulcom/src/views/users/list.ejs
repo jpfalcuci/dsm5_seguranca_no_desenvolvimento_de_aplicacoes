@@ -1,0 +1,43 @@
+<%- include('../_partial/header') %>
+
+<h1>Listagem de usuários</h1>
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    td, th {
+        border: 1px solid gray;
+        padding: 10px;
+    }
+</style>
+
+<div>
+    <a href="/users/new">Cadastrar novo usuário</a>
+</div>
+
+<table>
+    <tr>
+        <th>Cód.</th>
+        <th>Nome completo</th>
+        <th>Nome de usuário</th>
+        <th>E-mail</th>
+        <th>É admin?</th>
+        <th>Editar</th>
+        <th>Excluir</th>
+    </tr>
+
+    <% for(let user of users) { %>
+        <tr>
+            <td><%= user.id %></td>
+            <td><%= user.fullname %></td>
+            <td><%= user.username %></td>
+            <td><%= user.email %></td>
+            <td><input type="checkbox" readonly <% user.is_admin ? 'checked' : '' %></td>
+            <td><a href="/users/<%= user.id %>">[Editar]</a></td>
+            <td><a href="#">[Excluir]</a></td>
+        </tr>
+    <% } %>
+</table>
+
+<%- include('../_partial/footer') %>
