@@ -24,12 +24,15 @@
 </style>
 
 <% if(message) { %>
-    <div class="message <% error ? 'error' : 'sucess' %>">
+    <div class="message <%= error ? 'error' : 'sucess' %>">
         <%= message %>
     </div>
 <% } %>
 
-<form>
+<form method="POST" action="/users">
+
+    <input type="hidden" name="id" value="<%= user?.id %>">
+
     <div>
         <label>
             <span>Nome completo</span>
@@ -82,6 +85,33 @@
     <div>
         <button type="submit">Enviar</button>
     </div>
+
+    <script>
+        const form = document.querySelector('form')
+        form.addEventListener('submit', event => {
+
+            const email = document.querySelector('input[name="email"]')
+            const confirm_email = document.querySelector('input[name="confirm_email"]')
+
+            if(email.value !== confirm_email.value) {
+                event.preventDefault()
+                alert('A confirmação do email não coincide com o email.')
+                confirm_email.focus()
+                return false
+            }
+
+            const password = document.querySelector('input[name="password"]')
+            const confirm_password = document.querySelector('input[name="confirm_password"]')
+
+            if(password.value !== confirm_password.value) {
+                event.preventDefault()
+                alert('A confirmação da senha não coincide com a senha.')
+                confirm_password.focus()
+                return false
+            }
+        })
+    </script>
+    
 </form>
 
 <%- include('../_partial/footer') %>
