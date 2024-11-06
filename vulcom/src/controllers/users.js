@@ -1,4 +1,5 @@
 import prisma from '../database/client.js'
+import bcrypt from 'bcrypt'
 
 const controller = {}
 
@@ -13,6 +14,11 @@ controller.upsert = async function(req, res) {
     // Converte o valor do campo is_admin para boolean
     req.body.is_admin = (req.body.is_admin === 'on')
     
+    // Se houver campo password no body da requisição, encripta seu valor com bcrypt, usando 12 passos
+    if(req.body.password) {
+      req.body.password = await bcrypt.hash(req.body.password, 12)
+    }
+
     let message
 
     // Se existe um valor válido de id em req.body, faremos a atualização
@@ -53,7 +59,11 @@ controller.upsert = async function(req, res) {
 controller.retrieve = async function(req, res) {
     try {
 
-        const users = await prisma.users.findMany()
+        const users = await prisma.users.findMany({
+          omit: { password: true } // O campo será omitido do resultado
+        })
+
+        console.log({users})
 
         res.render('users/list', {
             title: 'Listagem de usuários',
@@ -81,6 +91,32 @@ controller.newUser = function(req, res) {
         error: false,
         user: {}
     })
+}
+
+controller.editUser = async function(req, res) {
+  try {
+    // Busca o usuário a ser editado
+    const result = await prisma.users.findUnique({
+      where: { id: Number(req.params.id) },
+      omit: { password: true } // O campo será omitido do resultado
+    })
+
+    res.render('users/form', {
+      title: 'Editar usuário',
+      message: '',
+      error: false,
+      user: result
+    })
+  }
+  catch(error) {
+    console.log(error)
+    res.render('users/list', {
+      title: 'Listagem de usuários',
+      users: [],
+      message: 'Erro no acesso ao banco de dados',
+      error: true
+    })
+  }  
 }
 
 export default controller

@@ -57,7 +57,7 @@
     <div>
         <label>
             <span>Confirme o e-mail</span>
-            <input name="confirm_email" value="<%= user?.confirm_email %>">
+            <input name="confirm_email" value="<%= user?.email %>">
         </label>
     </div>
     
@@ -67,19 +67,29 @@
             <span class="inline">É admin?</span>
         </label>
     </div>
-    
-    <div>
+
+    <div id="change-password" 
+        style="visibility: <%= user?.id ? 'visible' : 'hidden' %>">
         <label>
-            <span>Senha</span>
-            <input type="password" name="password">
+            <input type="checkbox" name="change_password">
+            <span class="inline">Alterar senha?</span>
         </label>
     </div>
+    
+    <div id="password-fields">
+        <div>
+            <label>
+                <span>Senha</span>
+                <input type="password" name="password">
+            </label>
+        </div>
 
-    <div>
-        <label>
-            <span>Confirme a senha</span>
-            <input type="confirm_password" name="confirm_password">
-        </label>
+        <div>
+            <label>
+                <span>Confirme a senha</span>
+                <input type="password" name="confirm_password">
+            </label>
+        </div>
     </div>
 
     <div>
@@ -110,8 +120,16 @@
                 return false
             }
         })
+
+        const confirm_password = document.querySelector('input[name="confirm_password"]')
+        const password_fields = document.querySelector('#password-fields')
+
+        change_password.addEventListener('change', event => {
+            const status = event.targe.checked ? 'visible' : 'hidden'
+            password_fields.style.visibility = status
+        })
     </script>
-    
+
 </form>
 
 <%- include('../_partial/footer') %>
