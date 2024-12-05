@@ -1,2 +1,7 @@
-# sa-not-2024-2
-Repositório da disciplina Segurança no Desenvolvimento de Aplicações, 5º semestre DSM noturno Fatec Franca 2024/2
+# Segurança no Desenvolvimento de Aplicações
+
+Curso: Desenvolvimento de Software Multiplataforma (Fatec - Franca/SP)
+
+Disciplina: Segurança no Desenvolvimento de Aplicações
+
+Período: 5º semestre (2024/2)
